@@ -1,0 +1,40 @@
+{
+  "name": "fullstack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node server.js --ignore public",
+    "dev": "webpack -wd",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SteveMustanski/fullstack-js.git"
+  },
+  "author": "Steve Mustanski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SteveMustanski/fullstack-js/issues"
+  },
+  "homepage": "https://github.com/SteveMustanski/fullstack-js#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongodb": "^3.2.4",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "nodemon": "^1.19.0",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2"
+  }
+}
