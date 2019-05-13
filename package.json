@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/SteveMustanski/fullstack-js#readme",
   "dependencies": {
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
     "mongodb": "^3.2.4",
     "prop-types": "^15.7.2",
