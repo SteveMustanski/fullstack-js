@@ -11,7 +11,9 @@ server.use(express.static('public'));
 server.set('view engine', 'ejs');
 
 server.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', {
+    content: 'here is some content',
+  });
 });
 
 server.listen(config.port, () => {
