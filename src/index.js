@@ -1,7 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+const App = props => {
+  return <h2 className='text-center'>{props.headerMessage}</h2>;
+};
+
 ReactDOM.render(
-  <h2 className='text-center'>Hello React with JSX</h2>,
+  <App headerMessage='Hello from props' />,
   document.getElementById('root'),
 );
