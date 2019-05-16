@@ -21,6 +21,7 @@
   "dependencies": {
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "json-loader": "^0.5.7",
     "mongodb": "^3.2.4",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
