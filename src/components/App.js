@@ -7,15 +7,6 @@ class App extends Component {
     pageHeader: 'Naming Contets',
   };
 
-  componentWillMount() {
-    console.log('will mount');
-    debugger;
-  }
-  componentDidMount() {
-    console.log('did mount');
-    debugger;
-  }
-
   render() {
     return (
       <div className='App'>
