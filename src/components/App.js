@@ -1,8 +1,10 @@
+// external modules
 import React, { Component } from 'react';
+import axios from 'axios';
 
+// internal modules
 import Header from './Header';
 import ContestPreview from './ContestPreview';
-import data from '../testData';
 
 class App extends Component {
   state = {
@@ -11,9 +13,14 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.setState({
-      contests: data.contests,
-    });
+    axios
+      .get('/api/contests')
+      .then(resp => {
+        this.setState({
+          contests: resp.data.contests,
+        });
+      })
+      .catch(console.err);
   }
 
   render() {
