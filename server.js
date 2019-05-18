@@ -1,14 +1,12 @@
-import express from 'express';
-import sassMiddleware from 'node-sass-middleware';
-import path from 'path';
-
 import config from './config';
 import apiRouter from './api';
+import sassMiddleware from 'node-sass-middleware';
+import path from 'path';
+import serverRender from './serverRender';
+import express from 'express';
 
 const server = express();
 
-server.use('/api', apiRouter);
-server.use(express.static('public'));
 server.use(
   sassMiddleware({
     src: path.join(__dirname, 'sass'),
@@ -18,14 +16,20 @@ server.use(
 
 server.set('view engine', 'ejs');
 
-import './serverRender';
-
 server.get('/', (req, res) => {
-  res.render('index', {
-    content: 'here is some content',
-  });
+  serverRender()
+    .then(({ initialMarkup, initialData }) => {
+      res.render('index', {
+        initialMarkup,
+        initialData,
+      });
+    })
+    .catch(console.error);
 });
 
+server.use('/api', apiRouter);
+server.use(express.static('public'));
+
 server.listen(config.port, config.host, () => {
-  console.info(`Express listening on port ${config.port}`);
+  console.info('Express listening on port', config.port);
 });

@@ -9,7 +9,7 @@ import ContestPreview from './ContestPreview';
 class App extends Component {
   state = {
     pageHeader: 'Naming Contets',
-    contests: [],
+    contests: this.props.initialContests,
   };
 
   componentDidMount() {
