@@ -18,12 +18,14 @@ server.use(
 
 server.set('view engine', 'ejs');
 
+import './serverRender';
+
 server.get('/', (req, res) => {
   res.render('index', {
     content: 'here is some content',
   });
 });
 
-server.listen(config.port, () => {
+server.listen(config.port, config.host, () => {
   console.info(`Express listening on port ${config.port}`);
 });
