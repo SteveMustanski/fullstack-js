@@ -7,7 +7,7 @@ class ContestPreview extends Component {
   };
   render() {
     return (
-      <div className='ContestPreview' onClick={this.handleClick}>
+      <div className='link ContestPreview' onClick={this.handleClick}>
         <div className='category-name'>{this.props.categoryName}</div>
         <div className='contest-name'>{this.props.contestName}</div>
         <br />
