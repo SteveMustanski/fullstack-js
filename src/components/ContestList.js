@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 
 import ContestPreview from './ContestPreview';
 
-const ContestList = ({ contests }) => {
+const ContestList = ({ contests, onContestClick }) => {
   return (
     <div>
       {contests.map(contest => (
-        <ContestPreview {...contest} key={contest.id} />
+        <ContestPreview
+          {...contest}
+          key={contest.id}
+          onClick={onContestClick}
+        />
       ))}
     </div>
   );
@@ -15,6 +19,7 @@ const ContestList = ({ contests }) => {
 
 ContestList.propTypes = {
   contests: PropTypes.array,
+  onContestClick: PropTypes.func.isRequired,
 };
 
 export default ContestList;
