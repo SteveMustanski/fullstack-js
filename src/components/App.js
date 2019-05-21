@@ -1,6 +1,7 @@
 // external modules
 import React, { Component } from 'react';
 import axios from 'axios';
+import Proptypes from 'prop-types';
 
 // internal modules
 import Header from './Header';
@@ -13,9 +14,10 @@ const pushState = (obj, url) => {
 };
 
 class App extends Component {
-  state = {
-    contests: this.props.initialContests,
+  static propTypes = {
+    initialData: Proptypes.object.isRequired,
   };
+  state = this.props.initialData;
 
   componentDidMount() {
     axios
@@ -49,7 +51,6 @@ class App extends Component {
           [contest.id]: contest,
         },
       });
-      debugger;
     });
   };
 
