@@ -6,6 +6,7 @@ import axios from 'axios';
 import Header from './Header';
 import ContestList from './ContestList';
 import Contest from './Contest';
+import * as api from '../api';
 
 const pushState = (obj, url) => {
   window.history.pushState(obj, '', url);
@@ -13,7 +14,6 @@ const pushState = (obj, url) => {
 
 class App extends Component {
   state = {
-    pageHeader: 'Naming Contets',
     contests: this.props.initialContests,
   };
 
@@ -28,17 +28,34 @@ class App extends Component {
       .catch(console.err);
   }
 
+  currentContest() {
+    return this.state.contests[this.state.currentContestId];
+  }
+
+  pageHeader() {
+    if (this.state.currentContestId) {
+      return this.currentContest().contestName;
+    }
+    return 'Naming Contests';
+  }
+
   fetchContest = contestId => {
-    pushState({ currentContestId: contestId }, `/contest/${contestId}`);
-    this.setState({
-      pageHeader: this.state.contests[contestId].contestName,
-      currentContestId: contestId,
+    pushState({ currentContestId: contestId }, `/contests/${contestId}`);
+    api.fetchContest(contestId).then(contest => {
+      this.setState({
+        currentContestId: contest.id,
+        contests: {
+          ...this.state.contests,
+          [contest.id]: contest,
+        },
+      });
+      debugger;
     });
   };
 
   currentContent() {
     if (this.state.currentContestId) {
-      return <Contest {...this.state.contests[this.state.currentContestId]} />;
+      return <Contest {...this.currentContest()} />;
     }
     return (
       <ContestList
@@ -51,7 +68,7 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <Header message={this.state.pageHeader} />
+        <Header message={this.pageHeader()} />
         {this.currentContent()}
       </div>
     );
