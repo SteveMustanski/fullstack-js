@@ -53,10 +53,24 @@ class App extends Component {
       });
     });
   };
+  fetchContestList = () => {
+    pushState({ currentContestId: null }, `/`);
+    api.fetchContestList().then(contests => {
+      this.setState({
+        currentContestId: null,
+        contests,
+      });
+    });
+  };
 
   currentContent() {
     if (this.state.currentContestId) {
-      return <Contest {...this.currentContest()} />;
+      return (
+        <Contest
+          {...this.currentContest()}
+          contestListClick={this.fetchContestList}
+        />
+      );
     }
     return (
       <ContestList
