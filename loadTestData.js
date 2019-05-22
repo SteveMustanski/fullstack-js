@@ -1,10 +1,12 @@
 import { MongoClient } from 'mongodb';
 import assert from 'assert';
-import config from './config';
+//import config from './config';
 
-MongoClient.connect(config.mongodbUri, (err, db) => {
+const url = 'mongodb://localhost:27017/mern';
+
+MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
   assert.equal(null, err);
-
+  const db = client.db('mern');
   db.collection('contests')
     .insertMany([
       {
@@ -63,7 +65,7 @@ A list of free online programming books, categorized by languages/topics
         ])
         .then(response => {
           console.info('Names', response.insertedCount);
-          db.close();
+          client.close();
         });
     });
 });
