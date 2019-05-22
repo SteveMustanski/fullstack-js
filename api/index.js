@@ -1,22 +1,40 @@
 import express from 'express';
-
-import data from '../src/testData';
+import { MongoClient } from 'mongodb';
+import assert from 'assert';
+import config from '../config';
 
 const router = express.Router();
-const contests = data.contests.reduce((obj, contest) => {
-  obj[contest.id] = contest;
-  return obj;
-}, {});
+
+const url = config.mongodbUri;
+
+let mdb;
+
+MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+  assert.equal(null, err);
+  const db = client.db('mern');
+
+  mdb = db;
+});
 
 router.get('/contests', (req, res) => {
-  res.send({
-    contests: contests,
-  });
+  let contests = {};
+  mdb
+    .collection('contests')
+    .find({})
+    .project({
+      id: 1,
+      categoryName: 1,
+      contestName: 1,
+    })
+    .each((err, contest) => {
+      assert.equal(null, err);
+      if (!contest) {
+        res.send(contests);
+        return;
+      }
+      contests[contest.id] = contest;
+    });
 });
-router.get('/contests/:contestId', (req, res) => {
-  let contest = contests[req.params.contestId];
-  contest.description = 'fake description';
-  res.send(contest);
-});
+router.get('/contests/:contestId', (req, res) => {});
 
 export default router;
