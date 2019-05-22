@@ -29,12 +29,20 @@ router.get('/contests', (req, res) => {
     .each((err, contest) => {
       assert.equal(null, err);
       if (!contest) {
-        res.send(contests);
+        res.send({ contests });
         return;
       }
       contests[contest.id] = contest;
     });
 });
-router.get('/contests/:contestId', (req, res) => {});
+router.get('/contests/:contestId', (req, res) => {
+  mdb
+    .collection('contests')
+    .findOne({ id: Number(req.params.contestId) })
+    .then(contest => {
+      res.send(contest);
+    })
+    .catch(console.err);
+});
 
 export default router;
