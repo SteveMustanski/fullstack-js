@@ -29,14 +29,6 @@ class App extends Component {
         currentContestId: (event.state || {}).currentContestId,
       });
     });
-    axios
-      .get('/api/contests')
-      .then(resp => {
-        this.setState({
-          contests: resp.data.contests,
-        });
-      })
-      .catch(console.err);
   }
 
   componentWillUnmount() {
