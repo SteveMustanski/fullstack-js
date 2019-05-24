@@ -68,11 +68,18 @@ class App extends Component {
     });
   };
 
+  fetchNames = nameIds => {
+    api.fetchNames(nameIds).then(names => {
+      this.setState({ names });
+    });
+  };
+
   currentContent() {
     if (this.state.currentContestId) {
       return (
         <Contest
           {...this.currentContest()}
+          fetchNames={this.fetchNames}
           contestListClick={this.fetchContestList}
         />
       );
