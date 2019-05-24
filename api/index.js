@@ -16,6 +16,8 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
   mdb = db;
 });
 
+// contests routes
+
 router.get('/contests', (req, res) => {
   let contests = {};
   mdb
@@ -43,6 +45,24 @@ router.get('/contests/:contestId', (req, res) => {
       res.send(contest);
     })
     .catch(console.err);
+});
+
+// names routes
+
+router.get('/names/:nameIds', (req, res) => {
+  const nameIds = req.params.nameIds.split(',').map(Number);
+  let names = {};
+  mdb
+    .collection('names')
+    .find({ id: { $in: nameIds } })
+    .each((err, name) => {
+      assert.equal(null, err);
+      if (!name) {
+        res.send({ names });
+        return;
+      }
+      names[name.id] = name;
+    });
 });
 
 export default router;
