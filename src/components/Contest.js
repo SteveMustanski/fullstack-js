@@ -8,32 +8,35 @@ class Contest extends Component {
   render() {
     return (
       <div className='Contest'>
-        <div className='panel panel-default'>
-          <div className='panel-heading'>
-            <h3 className='panel-title'>Contest Description</h3>
+        <div className='card '>
+          <div className='card-header'>
+            <h3 className='card-title'>Contest Description</h3>
           </div>
-          <div className='panel-body'>
+          <div className='card-body'>
             <div className='contest-description'>{this.props.description}</div>
           </div>
         </div>
 
-        <div className='panel panel-default'>
-          <div className='panel-heading'>
-            <h3 className='panel-title'>Proposed Names</h3>
+        <div className='card'>
+          <div className='card-header'>
+            <h3 className='card-title'>Proposed Names</h3>
           </div>
-          <div className='panel-body'>
+          <div className='card-body'>
             <ul className='list-group'>
-              <li className='list-group-item'>Name one...</li>
-              <li className='list-group-item'>Name two...</li>
+              {this.props.nameIds.map(nameId => (
+                <li key={nameId} className='list-group-item'>
+                  {this.props.lookupName(nameId).name}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
-        <div className='panel panel-info'>
-          <div className='panel-heading'>
-            <h3 className='panel-title'>Propose a New Name</h3>
+        <div className='card'>
+          <div className='card-heading'>
+            <h3 className='card-title'>Propose a New Name</h3>
           </div>
-          <div className='panel-body'>
+          <div className='card-body'>
             <form>
               <div className='input-group'>
                 <input
@@ -64,6 +67,7 @@ Contest.propTypes = {
   contestListClick: PropTypes.func.isRequired,
   fetchNames: PropTypes.func.isRequired,
   nameIds: PropTypes.array.isRequired,
+  lookupName: PropTypes.func.isRequired,
 };
 
 export default Contest;

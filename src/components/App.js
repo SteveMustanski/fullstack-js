@@ -69,9 +69,21 @@ class App extends Component {
   };
 
   fetchNames = nameIds => {
+    if (nameIds.length === 0) {
+      return;
+    }
     api.fetchNames(nameIds).then(names => {
       this.setState({ names });
     });
+  };
+
+  lookupName = nameId => {
+    if (!this.state.names || !this.state.names[nameId]) {
+      return {
+        name: '...',
+      };
+    }
+    return this.state.names[nameId];
   };
 
   currentContent() {
@@ -80,6 +92,7 @@ class App extends Component {
         <Contest
           {...this.currentContest()}
           fetchNames={this.fetchNames}
+          lookupName={this.lookupName}
           contestListClick={this.fetchContestList}
         />
       );
