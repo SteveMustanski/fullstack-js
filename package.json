@@ -7,6 +7,7 @@
     "start": "nodemon --exec babel-node server.js --ignore public",
     "dev": "webpack -wd",
     "data": "nodemon --exec babel-node loadTestData.js",
+    "udata": "nodemon --exec babel-node updateTestData.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
