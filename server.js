@@ -25,7 +25,7 @@ server.get(['/', '/contests/:contestId'], (req, res) => {
       });
     })
     .catch(error => {
-      console.error(error);
+      console.error(error.message);
       res.status(404).send('Bad request');
     });
 });
