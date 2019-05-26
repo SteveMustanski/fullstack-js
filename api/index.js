@@ -70,7 +70,7 @@ router.get('/names/:nameIds', (req, res) => {
 router.post('/names', (req, res) => {
   const contestId = ObjectID(req.body.contestId);
   const name = req.body.newName;
-
+  // validation ...
   mdb
     .collection('names')
     .insertOne({ name })
@@ -83,16 +83,16 @@ router.post('/names', (req, res) => {
           { $push: { nameIds: result.insertedId } },
           { new: true },
         )
-        .then(doc => {
+        .then(doc =>
           res.send({
             updatedContest: doc.value,
-            newnName: { _id: result.insertedId, name },
-          });
-        }),
+            newName: { _id: result.insertedId, name },
+          }),
+        ),
     )
     .catch(error => {
-      console.error(error.message);
-      res.status(404).send('Bad request');
+      console.error(error);
+      res.status(404).send('Bad Request');
     });
 });
 
