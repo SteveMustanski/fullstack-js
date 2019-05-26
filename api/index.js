@@ -43,7 +43,10 @@ router.get('/contests/:contestId', (req, res) => {
     .then(contest => {
       res.send(contest);
     })
-    .catch(console.err);
+    .catch(error => {
+      console.error(error.message);
+      res.status(404).send('Bad request');
+    });
 });
 
 // names routes
